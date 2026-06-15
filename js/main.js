@@ -55,9 +55,27 @@ document.addEventListener('DOMContentLoaded', () => {
     sections.forEach(section => observer.observe(section));
   }
 
-  // Hero background video autoplay (some mobile browsers block autoplay)
+  // Hero background video autoplay (mobile browsers often need an explicit play attempt)
   const heroVideo = document.querySelector('.hero-video');
   if (heroVideo) {
-    heroVideo.play().catch(() => {});
+    heroVideo.muted = true;
+    heroVideo.defaultMuted = true;
+    heroVideo.setAttribute('playsinline', '');
+    heroVideo.setAttribute('webkit-playsinline', '');
+
+    const tryPlay = () => {
+      const playPromise = heroVideo.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => {});
+      }
+    };
+
+    tryPlay();
+    heroVideo.addEventListener('loadeddata', tryPlay, { once: true });
+    heroVideo.addEventListener('canplay', tryPlay, { once: true });
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) tryPlay();
+    });
+    window.addEventListener('pageshow', tryPlay);
   }
 });
