@@ -969,13 +969,16 @@ body:has(.event-hero-info) .agenda-speakers strong {
 
 /* ?? Promo Gallery ?? */
 .promo-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 16px;
   margin-top: 32px;
 }
 
 .promo-gallery img {
+  flex: 0 1 min(360px, 100%);
+  max-width: 360px;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   width: 100%;
