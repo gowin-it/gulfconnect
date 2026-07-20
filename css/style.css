@@ -251,7 +251,8 @@ body.home .site-header.scrolled .logo-img-dark {
 }
 
 .hero-bg,
-.hero-video {
+.hero-video,
+.hero-bg-img {
   position: absolute;
   inset: 0;
   object-fit: cover;
@@ -261,6 +262,10 @@ body.home .site-header.scrolled .logo-img-dark {
 
 .hero-bg {
   opacity: 0.35;
+}
+
+.hero-bg-img {
+  opacity: 0.65;
 }
 
 .hero-video {
@@ -491,7 +496,7 @@ body.home .site-header.scrolled .logo-img-dark {
 .questions-list {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 16px;
 }
 
@@ -632,6 +637,39 @@ body:has(.event-hero-info) .agenda-speakers strong {
   position: relative;
 }
 
+.event-hero-video-wrap {
+  margin-top: 0;
+  min-height: 72vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background: var(--navy);
+}
+
+.event-hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.event-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 37, 64, 0.35) 0%, rgba(10, 37, 64, 0.88) 100%);
+}
+
+.event-hero-info-overlay {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  background: transparent !important;
+  padding: calc(var(--header-height) + 48px) 0 56px;
+}
+
 .event-hero-img {
   width: 100%;
   max-height: 480px;
@@ -688,10 +726,12 @@ body:has(.event-hero-info) .agenda-speakers strong {
   font-size: 1rem;
   border-radius: 50px;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   color: var(--text);
   transition: all var(--transition);
+}
+
+.event-nav-zh::before {
+  content: ' ';
 }
 
 .event-nav a:hover,
@@ -764,6 +804,21 @@ body:has(.event-hero-info) .agenda-speakers strong {
   background: var(--white);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
+}
+
+.agenda-item.has-media {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 240px;
+  gap: 24px;
+  align-items: start;
+}
+
+.agenda-item-media img {
+  width: 100%;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
 }
 
 .agenda-item::before {
@@ -1047,17 +1102,63 @@ body:has(.event-hero-info) .agenda-speakers strong {
   object-fit: cover;
 }
 
-/* ?? Responsive ?? */
-@media (min-width: 901px) {
-  .event-hero {
-    display: none;
-  }
-
-  .event-hero-info {
-    margin-top: var(--header-height);
-  }
+/* Event Recap */
+.recap-intro {
+  max-width: 820px;
+  margin: 0 auto 40px;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: center;
+  line-height: 1.75;
 }
 
+.recap-videos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  margin-bottom: 36px;
+}
+
+.recap-video-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  color: var(--navy);
+}
+
+.recap-video-desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 14px;
+}
+
+.recap-video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-lg);
+  background: #000;
+  box-shadow: var(--shadow-lg);
+}
+video[poster] {
+  object-fit:fill;
+}
+
+.recap-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.recap-gallery img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* ?? Responsive ?? */
 @media (max-width: 900px) {
   .two-col {
     grid-template-columns: 1fr;
@@ -1078,8 +1179,36 @@ body:has(.event-hero-info) .agenda-speakers strong {
   }
 
   .event-nav a {
-    padding: 8px 10px;
-    font-size: 0.95rem;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  .event-nav-zh {
+    display: none;
+  }
+
+  .event-hero-video-wrap {
+    min-height: 65vh;
+  }
+
+  .event-hero-info-overlay {
+    padding: calc(var(--header-height) + 32px) 0 40px;
+  }
+
+  .agenda-item.has-media {
+    grid-template-columns: 1fr;
+  }
+
+  .agenda-item-media {
+    order: -1;
+  }
+
+  .recap-videos {
+    grid-template-columns: 1fr;
+  }
+
+  .recap-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .sector-grid {

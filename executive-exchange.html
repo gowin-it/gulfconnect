@@ -8,9 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://media.gulfconnect.org">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="executive-page">
 
   <header class="site-header">
     <div class="header-inner">
@@ -37,45 +38,48 @@
     </nav>
   </header>
 
-  <section class="event-hero">
-    <!-- <img src="img2/a34c0ac62d26b188b930e2620a4261fb.jpg" alt="Gulf Connect Executive Exchange" class="event-hero-img"> -->
-  </section>
-
-  <section class="event-hero-info">
-    <div class="container">
-      <p class="hero-eyebrow" style="text-align:center;margin-bottom:12px;">Gulf Connect x LEAP East</p>
-      <h1 style="color:#fff;text-align:center;font-size:clamp(1.6rem,4vw,2.4rem);margin-bottom:12px;">Gulf Connect | Executive Exchange<br>中東通高層會客廳</h1>
-      <p style="text-align:center;color:var(--gold-light);margin-bottom:8px;letter-spacing:0.05em;">Reshape Mindset / Activate Ecosystem / Achieve Milestone / Reach Destination</p>
-      <p style="text-align:center;color:rgba(255,255,255,0.65);margin-bottom:32px;font-size:0.95rem;letter-spacing:0.04em;">思維重構 / 生態蓄勢 / 節點突破 / 行者致遠</p>
-      <div class="event-meta">
-        <div class="event-meta-item">
-          <div class="label">Date</div>
-          <div class="value">Wednesday, 8 July 2026<br>13:00 - 18:00</div>
+  <section class="event-hero event-hero-video-wrap">
+    <video class="event-hero-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="img/Our Mission_3.png">
+      <source src="https://media.gulfconnect.org/video/Home_Earth.mp4" type="video/mp4">
+    </video>
+    <div class="event-hero-overlay"></div>
+    <div class="event-hero-info event-hero-info-overlay">
+      <div class="container">
+        <p class="hero-eyebrow" style="text-align:center;margin-bottom:12px;">Gulf Connect x LEAP East</p>
+        <h1 style="color:#fff;text-align:center;font-size:clamp(1.6rem,4vw,2.4rem);margin-bottom:12px;">Gulf Connect | Executive Exchange<br>中東通高層會客廳</h1>
+        <p style="text-align:center;color:var(--gold-light);margin-bottom:8px;letter-spacing:0.05em;">Reshape Mindset / Activate Ecosystem / Achieve Milestone / Reach Destination</p>
+        <p style="text-align:center;color:rgba(255,255,255,0.65);margin-bottom:32px;font-size:0.95rem;letter-spacing:0.04em;">思維重構 / 生態蓄勢 / 節點突破 / 行者致遠</p>
+        <div class="event-meta">
+          <div class="event-meta-item">
+            <div class="label">Date</div>
+            <div class="value">Wednesday, 8 July 2026<br>13:00 - 18:00</div>
+          </div>
+          <div class="event-meta-item">
+            <div class="label">Venue</div>
+            <div class="value">S421, Hong Kong Convention and Exhibition Centre (HKCEC)<br>1 Expo Drive, Wan Chai, Hong Kong</div>
+          </div>
+          <div class="event-meta-item">
+            <div class="label">Format</div>
+            <div class="value">Invitation-only Executive Exchange<br>约 100 位精选参与者</div>
+          </div>
+          <div class="event-meta-item">
+            <div class="label">Language</div>
+            <div class="value">Chinese &amp; English<br>中英双语</div>
+          </div>
         </div>
-        <div class="event-meta-item">
-          <div class="label">Venue</div>
-          <div class="value">S421, Hong Kong Convention and Exhibition Centre (HKCEC)<br>1 Expo Drive, Wan Chai, Hong Kong</div>
+        <div class="cta-group" style="justify-content:center;margin-top:32px;">
+          <a href="#recap" class="btn btn-primary">Watch Event Recap</a>
+          <a href="https://cxsurvey.ipsos.cn/survey2c/#/answer?id=SMDwBaKz4kbZML0HAI" class="btn btn-outline" target="_blank" rel="noopener">New Star Enterprises List</a>
         </div>
-        <div class="event-meta-item">
-          <div class="label">Format</div>
-          <div class="value">Invitation-only Executive Exchange<br>约 100 位精选参与者</div>
-        </div>
-        <div class="event-meta-item">
-          <div class="label">Language</div>
-          <div class="value">Chinese &amp; English<br>中英双语</div>
-        </div>
-      </div>
-      <div class="cta-group" style="justify-content:center;margin-top:32px;">
-        <a href="https://meeting.hyterp.cn/website/10024/register.html" class="btn btn-primary" target="_blank" rel="noopener">Event Registration</a>
-        <a href="https://cxsurvey.ipsos.cn/survey2c/#/answer?id=SMDwBaKz4kbZML0HAI" class="btn btn-outline" target="_blank" rel="noopener">New Star Enterprises List</a>
       </div>
     </div>
   </section>
 
   <nav class="event-nav">
-    <a href="#introduction" class="active">Intro 介绍</a>
-    <a href="#speakers">Speakers 嘉宾</a>
-    <a href="#agenda">Agenda 议程</a>
+    <a href="#introduction"><span class="event-nav-en">Intro</span><span class="event-nav-zh">介绍</span></a>
+    <a href="#speakers"><span class="event-nav-en">Speakers</span><span class="event-nav-zh">嘉宾</span></a>
+    <a href="#agenda"><span class="event-nav-en">Agenda</span><span class="event-nav-zh">议程</span></a>
+    <a href="#recap" class="active"><span class="event-nav-en">Recap</span><span class="event-nav-zh">回顾</span></a>
   </nav>
 
   <section class="section" id="introduction">
@@ -304,7 +308,8 @@
 
       <div class="agenda-timeline">
 
-        <div class="agenda-item">
+        <div class="agenda-item has-media">
+          <div class="agenda-item-body">
           <div class="agenda-time">13:30 – 14:00</div>
           <div class="agenda-title">CONNECT</div>
           <p class="agenda-subtitle-en">Registration &amp; Executive Networking</p>
@@ -312,8 +317,11 @@
           <p class="agenda-subtitle-zh">签到与高层交流</p>
           <p class="agenda-desc-zh">面向 GCC 政府机构、主权基金、产业资本、科技企业及全球投资机构。</p>
         </div>
+          <div class="agenda-item-media"><img src="https://media.gulfconnect.org/img/%E4%BC%9A%E5%9C%BA%E7%9B%9B%E5%86%B51.JPG" alt="Registration and networking"></div>
+        </div>
 
-        <div class="agenda-item">
+        <div class="agenda-item has-media">
+          <div class="agenda-item-body">
           <div class="agenda-time">14:00 – 14:05</div>
           <div class="agenda-title">OPENING KEYNOTE</div>
           <p class="agenda-subtitle-en">Special Keynote Address by Distinguished Guest</p>
@@ -323,8 +331,11 @@
 
           <div class="agenda-speakers"><strong>Speakers</strong><br>Arnold Lau, Associate Director-General of Investment Promotion, Invest Hong Kong / 刘智元，香港特别行政区政府投资推广署助理署长</div>
         </div>
+          <div class="agenda-item-media"><img src="https://media.gulfconnect.org/img/%E6%9D%8E%E6%B5%B7%E5%B2%9A.JPG" alt="Opening keynote"></div>
+        </div>
 
-        <div class="agenda-item">
+        <div class="agenda-item has-media">
+          <div class="agenda-item-body">
           <div class="agenda-time">14:05 – 14:25</div>
           <div class="agenda-title">OPENING REMARKS &amp; PLATFORM LAUNCH</div>
           <p class="agenda-subtitle-en">Introducing Gulf Connect</p>
@@ -334,8 +345,11 @@
 
           <div class="agenda-speakers"><strong>Speakers</strong><br>Deng Qingxu, Chief Executive Officer, Sina Finance / 邓庆旭，新浪财经首席执行官<br>Vanessa Xu, Executive Chairman and Chief Investment Officer, VS Partners (Hong Kong) Co., Limited / 徐莹，维世资产（VS Partners）执行董事长兼首席投资官</div>
         </div>
+          <div class="agenda-item-media"><img src="https://media.gulfconnect.org/img/Offical%20Launch%20of%20Gulf%20Connect.jpg" alt="Gulf Connect platform launch"></div>
+        </div>
 
-        <div class="agenda-item">
+        <div class="agenda-item has-media">
+          <div class="agenda-item-body">
           <div class="agenda-time">14:25 – 14:30</div>
           <div class="agenda-title">LEAP EAST</div>
           <p class="agenda-subtitle-en">Special Remarks on LEAP East&#x27;s Strategic Role</p>
@@ -345,8 +359,11 @@
 
           <div class="agenda-speakers"><strong>Speakers</strong><br>Basma Dawwas, Director, LEAP Events, Flagship Global Tech Platforms / 巴斯玛·达瓦斯，LEAP Events 执行总监，全球旗舰科技平台</div>
         </div>
+          <div class="agenda-item-media"><img src="https://media.gulfconnect.org/img/%E5%B7%B4%E6%96%AF%E7%8E%9B.JPG" alt="LEAP East remarks"></div>
+        </div>
 
-        <div class="agenda-item">
+        <div class="agenda-item has-media">
+          <div class="agenda-item-body">
           <div class="agenda-time">14:30 – 14:55</div>
           <div class="agenda-title">BUILDING THE BACKBONE</div>
           <p class="agenda-subtitle-en">Roads built the last century. What will build the next one?</p>
@@ -360,8 +377,11 @@
 
           <div class="agenda-speakers"><strong>Moderator</strong><br>Stephan Yao, President, Tenwings Accelevator / 姚鸿，腾云香港科创集群加速器总裁</div>
         </div>
+          <div class="agenda-item-media"><img src="https://media.gulfconnect.org/img/session1.jpg" alt="Session I: Building the Backbone"></div>
+        </div>
 
-        <div class="agenda-item">
+        <div class="agenda-item has-media">
+          <div class="agenda-item-body">
           <div class="agenda-time">14:55 – 15:20</div>
           <div class="agenda-title">ROBOTICS: THE NEXT WORKFORCE</div>
           <p class="agenda-subtitle-en">Robotics: The Next Workforce</p>
@@ -373,8 +393,11 @@
 
           <div class="agenda-speakers"><strong>Moderator</strong><br>Zhou Xin, Director, Newsroom AI Innovation, South China Morning Post / 周昕，《南华早报》AI创新总监</div>
         </div>
+          <div class="agenda-item-media"><img src="https://media.gulfconnect.org/img/session2.jpg" alt="Session II: Robotics"></div>
+        </div>
 
-        <div class="agenda-item">
+        <div class="agenda-item has-media">
+          <div class="agenda-item-body">
           <div class="agenda-time">15:20 – 15:45</div>
           <div class="agenda-title">BUILDING AT SCALE</div>
           <p class="agenda-subtitle-en">Delivering at Speed</p>
@@ -386,8 +409,11 @@
 
           <div class="agenda-speakers"><strong>Moderator</strong><br>Lan Zhao, Hong Kong Bureau Chief, Sina Finance / 赵岚，新浪财经香港站站长</div>
         </div>
+          <div class="agenda-item-media"><img src="https://media.gulfconnect.org/img/session3.jpg" alt="Session III: Building at Scale"></div>
+        </div>
 
-        <div class="agenda-item">
+        <div class="agenda-item has-media">
+          <div class="agenda-item-body">
           <div class="agenda-time">15:45 – 16:10</div>
           <div class="agenda-title">CAPITAL–ASSET SYSTEM REWIRING</div>
           <p class="agenda-subtitle-en">Capital–Asset System Rewiring</p>
@@ -399,8 +425,11 @@
 
           <div class="agenda-speakers"><strong>Moderator</strong><br>Vanessa Xu, Executive Chairman and Chief Investment Officer, VS Partners (Hong Kong) Co., Limited / 徐莹，维世资产（VS Partners）执行董事长兼首席投资官</div>
         </div>
+          <div class="agenda-item-media"><img src="https://media.gulfconnect.org/img/session4.jpg" alt="Session IV: Capital-Asset System Rewiring"></div>
+        </div>
 
-        <div class="agenda-item">
+        <div class="agenda-item has-media">
+          <div class="agenda-item-body">
           <div class="agenda-time">16:10 – 16:30</div>
           <div class="agenda-title">THE NEW STARS</div>
           <p class="agenda-subtitle-en">China–Middle East New Star Enterprises List Launch</p>
@@ -408,8 +437,11 @@
           <p class="agenda-subtitle-zh">《中国－中东产业新星企业榜单》发布</p>
           <p class="agenda-desc-zh">为投资机构、政府决策者及产业领袖提供一个识别下一代中国创新企业的重要参考，聚焦最具长期合作潜力和海湾市场发展价值的企业。</p>
         </div>
+          <div class="agenda-item-media"><img src="https://media.gulfconnect.org/img/%E4%B8%AD%E5%9B%BD%E4%B8%AD%E4%B8%9C%E6%96%B0%E5%85%B4%E4%BA%A7%E4%B8%9A%E6%A6%9C%E5%8D%95CEO1.JPG" alt="New Star Enterprises List launch"></div>
+        </div>
 
-        <div class="agenda-item">
+        <div class="agenda-item has-media">
+          <div class="agenda-item-body">
           <div class="agenda-time">16:30 – 16:45</div>
           <div class="agenda-title">LIGHTER. STRONGER. CHEAPER.</div>
           <p class="agenda-subtitle-en">The Future of Manufacturing Is About All Three</p>
@@ -419,8 +451,11 @@
 
           <div class="agenda-speakers"><strong>Speakers</strong><br>Yan Peijie, Founder &amp; Chairman, EP Intelligent Manufacturing / 晏培杰，亿创特智能制造创始人兼董事长</div>
         </div>
+          <div class="agenda-item-media"><img src="https://media.gulfconnect.org/img/%E6%99%8F%E5%9F%B9%E6%9D%B0.JPG" alt="Advanced manufacturing"></div>
+        </div>
 
-        <div class="agenda-item">
+        <div class="agenda-item has-media">
+          <div class="agenda-item-body">
           <div class="agenda-time">16:45 – 17:30</div>
           <div class="agenda-title">THE FUTURE IS BUILT</div>
           <p class="agenda-subtitle-en">Innovation in Action</p>
@@ -432,8 +467,11 @@
 
           <div class="agenda-speakers"><strong>Commentary</strong><br>Wang Yi, Founder &amp; Chief Executive Officer, LAIX Inc. / 王翌，流利说创始人兼首席执行官</div>
         </div>
+          <div class="agenda-item-media"><img src="https://media.gulfconnect.org/img/session5.jpg" alt="Session V: Innovation in Action"></div>
+        </div>
 
-        <div class="agenda-item">
+        <div class="agenda-item has-media">
+          <div class="agenda-item-body">
           <div class="agenda-time">17:25 – 18:00</div>
           <div class="agenda-title">STRATEGIC CONNECTIONS</div>
           <p class="agenda-subtitle-en">Closed-door Networking</p>
@@ -441,16 +479,55 @@
           <p class="agenda-subtitle-zh">定向闭门交流</p>
           <p class="agenda-desc-zh">促进投资机构、政策制定者、产业领袖与科技创新企业之间的定向交流。</p>
         </div>
+          <div class="agenda-item-media"><img src="https://media.gulfconnect.org/img/%E5%91%98%E5%B7%A5%E5%90%88%E7%85%A71.JPG" alt="Closed-door networking"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-cream" id="recap">
+    <div class="container">
+      <div class="section-header">
+        <div class="gold-line"></div>
+        <h2>Event Recap</h2>
+        <p>Highlights from Gulf Connect | Executive Exchange at LEAP East Hong Kong, 8 July 2026</p>
+      </div>
+      <div class="recap-intro">
+        <p>On 8 July 2026, Gulf Connect convened leaders from sovereign investment institutions, industrial groups, technology companies, policymakers and cross-border investment communities across Asia and the GCC for a full-day executive exchange during LEAP East Hong Kong.</p>
+        <p>From the official launch of Gulf Connect to panel discussions on infrastructure, robotics, capital connectivity and innovation, the gathering brought together more than 100 selected participants for strategic dialogue, long-term collaboration and regional engagement.</p>
+        <p>2026年7月8日，Gulf Connect 在香港 LEAP East 期间举办高层会客厅，汇聚来自亚洲与海湾地区的主权投资机构、产业集团、科技企业、政策制定者与跨境投资社群代表，围绕平台发布、产业协同、资本连接与创新生态展开全天深度交流。</p>
+      </div>
+      <div class="recap-videos">
+        <article class="recap-video-card">
+          <h3>Event Recap</h3>
+          <p class="recap-video-desc">Relive the key moments from Gulf Connect | Executive Exchange.</p>
+          <video class="recap-video" controls playsinline preload="metadata" poster="https://media.gulfconnect.org/img/poster.jpg">
+            <source src="https://media.gulfconnect.org/video/recap.mp4" type="video/mp4">
+          </video>
+        </article>
+        <article class="recap-video-card">
+          <h3>Behind the Scenes</h3>
+          <p class="recap-video-desc">A lighter look at the people and energy behind the event.</p>
+          <video class="recap-video" controls playsinline preload="metadata" poster="https://media.gulfconnect.org/img/%E5%91%98%E5%B7%A5%E5%90%88%E7%85%A72.JPG">
+            <source src="https://media.gulfconnect.org/video/blooper.mp4" type="video/mp4">
+          </video>
+        </article>
+      </div>
+      <div class="recap-gallery">
+        <img src="https://media.gulfconnect.org/img/%E4%BC%9A%E5%9C%BA%E7%9B%9B%E5%86%B51.JPG" alt="Executive Exchange venue">
+        <img src="https://media.gulfconnect.org/img/session1.jpg" alt="Executive Exchange audience">
+        <img src="https://media.gulfconnect.org/img/%E4%B8%AD%E5%9B%BD%E4%B8%AD%E4%B8%9C%E6%96%B0%E5%85%B4%E4%BA%A7%E4%B8%9A%E6%A6%9C%E5%8D%95CEO2.JPG" alt="New Star Enterprises List">
+        <img src="https://media.gulfconnect.org/img/%E9%82%93%E5%BA%86%E6%97%AD.jpg" alt="Deng Qingxu, Sina Finance">
       </div>
     </div>
   </section>
 
   <section class="section section-navy" style="text-align:center;">
     <div class="container">
-      <h2 style="margin-bottom:16px;">Join Us at LEAP East 2026</h2>
-      <p style="max-width:600px;margin:0 auto 32px;color:rgba(255,255,255,0.75);">Invitation-only Executive Exchange. Register your interest today.</p>
+      <h2 style="margin-bottom:16px;">Gulf Connect | Executive Exchange 2026</h2>
+      <p style="max-width:600px;margin:0 auto 32px;color:rgba(255,255,255,0.75);">Thank you to everyone who joined us at LEAP East Hong Kong. Explore the recap and agenda highlights below.</p>
       <div class="cta-group" style="justify-content:center;">
-        <a href="https://meeting.hyterp.cn/website/10024/register.html" class="btn btn-primary" target="_blank" rel="noopener">Event Registration</a>
+        <a href="#recap" class="btn btn-primary">Watch Recap</a>
         <a href="https://cxsurvey.ipsos.cn/survey2c/#/answer?id=SMDwBaKz4kbZML0HAI" class="btn btn-outline" target="_blank" rel="noopener">New Star Enterprises List</a>
       </div>
     </div>

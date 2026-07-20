@@ -55,9 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
     sections.forEach(section => observer.observe(section));
   }
 
-  // Hero background video autoplay (mobile browsers often need an explicit play attempt)
-  const heroVideo = document.querySelector('.hero-video');
-  if (heroVideo) {
+  // Hero / event background video autoplay
+  document.querySelectorAll('.hero-video, .event-hero-video').forEach((heroVideo) => {
     heroVideo.muted = true;
     heroVideo.defaultMuted = true;
     heroVideo.setAttribute('playsinline', '');
@@ -77,5 +76,5 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!document.hidden) tryPlay();
     });
     window.addEventListener('pageshow', tryPlay);
-  }
+  });
 });
