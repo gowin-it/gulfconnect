@@ -77,4 +77,135 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     window.addEventListener('pageshow', tryPlay);
   });
+
+  // Media section: discourage video download via context menu
+  document.querySelectorAll('.media-video').forEach((video) => {
+    video.addEventListener('contextmenu', (e) => e.preventDefault());
+  });
+
+  // Photo carousel + lightbox
+  const carousel = document.querySelector('.photo-carousel');
+  const lightbox = document.getElementById('photo-lightbox');
+  if (carousel && lightbox) {
+    const track = carousel.querySelector('.photo-carousel-track');
+    const items = Array.from(carousel.querySelectorAll('.photo-carousel-item'));
+    const sources = items.map((item) => item.querySelector('img')?.src).filter(Boolean);
+    const lightboxImg = lightbox.querySelector('.lightbox-image');
+    let current = 0;
+
+    const scrollByDir = (dir) => {
+      const amount = Math.max(240, track.clientWidth * 0.8) * dir;
+      track.scrollBy({ left: amount, behavior: 'smooth' });
+    };
+
+    carousel.querySelector('.photo-carousel-nav.prev')?.addEventListener('click', () => scrollByDir(-1));
+    carousel.querySelector('.photo-carousel-nav.next')?.addEventListener('click', () => scrollByDir(1));
+
+    const openLightbox = (index) => {
+      if (!sources.length) return;
+      current = (index + sources.length) % sources.length;
+      lightboxImg.src = sources[current];
+      lightboxImg.alt = items[current]?.querySelector('img')?.alt || '';
+      lightbox.hidden = false;
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeLightbox = () => {
+      lightbox.hidden = true;
+      lightboxImg.removeAttribute('src');
+      document.body.style.overflow = '';
+    };
+
+    const stepLightbox = (dir) => openLightbox(current + dir);
+
+    items.forEach((item, index) => {
+      item.addEventListener('click', () => openLightbox(index));
+    });
+
+    lightbox.querySelector('.lightbox-close')?.addEventListener('click', closeLightbox);
+    lightbox.querySelector('.lightbox-nav.prev')?.addEventListener('click', () => stepLightbox(-1));
+    lightbox.querySelector('.lightbox-nav.next')?.addEventListener('click', () => stepLightbox(1));
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.hidden) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') stepLightbox(-1);
+      if (e.key === 'ArrowRight') stepLightbox(1);
+    });
+  }
+
+  // Agenda multi-image carousel (dots + drag on desktop)
+  document.querySelectorAll('.agenda-item-media-multi').forEach((scroller) => {
+    const images = Array.from(scroller.querySelectorAll('img'));
+    if (images.length < 2) return;
+
+    const wrap = document.createElement('div');
+    wrap.className = 'agenda-media-wrap';
+    scroller.parentNode.insertBefore(wrap, scroller);
+    wrap.appendChild(scroller);
+
+    const goTo = (index) => {
+      const i = Math.max(0, Math.min(images.length - 1, index));
+      scroller.scrollTo({ left: i * scroller.clientWidth, behavior: 'smooth' });
+    };
+
+    const dots = document.createElement('div');
+    dots.className = 'agenda-media-dots';
+    images.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.setAttribute('aria-label', `Go to photo ${i + 1}`);
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => goTo(i));
+      dots.appendChild(dot);
+    });
+    wrap.appendChild(dots);
+
+    const syncDots = () => {
+      const step = Math.max(scroller.clientWidth, 1);
+      const index = Math.min(images.length - 1, Math.round(scroller.scrollLeft / step));
+      dots.querySelectorAll('button').forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    };
+    scroller.addEventListener('scroll', syncDots, { passive: true });
+
+    // Desktop: click-drag to scroll horizontally
+    let isDown = false;
+    let startX = 0;
+    let startLeft = 0;
+    let moved = false;
+
+    scroller.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'touch') return;
+      isDown = true;
+      moved = false;
+      startX = e.clientX;
+      startLeft = scroller.scrollLeft;
+      scroller.classList.add('is-dragging');
+      scroller.setPointerCapture(e.pointerId);
+    });
+
+    scroller.addEventListener('pointermove', (e) => {
+      if (!isDown) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 3) moved = true;
+      scroller.scrollLeft = startLeft - dx;
+    });
+
+    const endDrag = (e) => {
+      if (!isDown) return;
+      isDown = false;
+      scroller.classList.remove('is-dragging');
+      // Snap to nearest slide after drag
+      const step = Math.max(scroller.clientWidth, 1);
+      goTo(Math.round(scroller.scrollLeft / step));
+      if (moved) e.preventDefault();
+    };
+
+    scroller.addEventListener('pointerup', endDrag);
+    scroller.addEventListener('pointercancel', endDrag);
+  });
 });
