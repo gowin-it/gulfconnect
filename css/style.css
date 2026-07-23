@@ -62,7 +62,7 @@ a:hover {
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 16px;
 }
 
 /* ?? Header ?? */
@@ -816,7 +816,7 @@ body:has(.event-hero-info) .agenda-speakers strong {
 
 .agenda-item.has-media {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 240px;
+  grid-template-columns: minmax(0, 1fr) 300px;
   gap: 24px;
   align-items: start;
 }
@@ -827,6 +827,7 @@ body:has(.event-hero-info) .agenda-speakers strong {
   box-shadow: var(--shadow);
   aspect-ratio: 4 / 3;
   object-fit: cover;
+  cursor: zoom-in;
 }
 
 .agenda-item-media-multi {
@@ -864,11 +865,7 @@ body:has(.event-hero-info) .agenda-speakers strong {
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
-}
-
-.agenda-item.has-media:has(.agenda-item-media-multi),
-.agenda-item.has-media:has(.agenda-media-wrap) {
-  grid-template-columns: minmax(0, 1fr) 300px;
+  cursor: zoom-in;
 }
 
 .agenda-media-wrap {
