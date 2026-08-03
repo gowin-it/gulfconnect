@@ -101,21 +101,9 @@ body.home .site-header.scrolled {
 body.home .site-header:not(.scrolled) .nav-desktop a {
   color: rgba(255, 255, 255, 0.92);
 }
-
 body.home .site-header:not(.scrolled) .nav-desktop a:hover,
 body.home .site-header:not(.scrolled) .nav-desktop a.active {
-  color: var(--white);
-  background: rgba(255, 255, 255, 0.14);
-}
-
-body.home .site-header:not(.scrolled) .nav-desktop a.nav-event {
-  background: var(--gold);
-  color: var(--navy);
-}
-
-body.home .site-header:not(.scrolled) .nav-desktop a.nav-event:hover {
-  background: var(--gold-light);
-  color: var(--navy);
+  background: var(--navy-light);
 }
 
 body.home .site-header:not(.scrolled) .menu-toggle span {
@@ -178,18 +166,8 @@ body.home .site-header.scrolled .logo-img-dark {
 
 .nav-desktop a:hover,
 .nav-desktop a.active {
-  color: var(--navy);
-  background: var(--cream);
-}
-
-.nav-desktop a.nav-event {
   background: var(--navy-light);
   color: var(--white);
-}
-
-.nav-desktop a.nav-event:hover {
-  background: var(--navy-light);
-  color: var(--gold-light);
 }
 
 .menu-toggle {
