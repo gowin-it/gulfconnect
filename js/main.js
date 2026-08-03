@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sections.forEach(section => observer.observe(section));
   }
 
-  // Hero / event background video autoplay
+  // Hero / event / media video autoplay
   document.querySelectorAll('.hero-video, .event-hero-video').forEach((heroVideo) => {
     heroVideo.muted = true;
     heroVideo.defaultMuted = true;
@@ -136,122 +136,60 @@ document.addEventListener('DOMContentLoaded', () => {
     const sources = items.map((item) => item.querySelector('img')?.src).filter(Boolean);
     const alts = items.map((item) => item.querySelector('img')?.alt || '');
 
-    const scrollByDir = (dir) => {
-      const amount = Math.max(240, track.clientWidth * 0.8) * dir;
-      track.scrollBy({ left: amount, behavior: 'smooth' });
-    };
-
-    carousel.querySelector('.photo-carousel-nav.prev')?.addEventListener('click', () => scrollByDir(-1));
-    carousel.querySelector('.photo-carousel-nav.next')?.addEventListener('click', () => scrollByDir(1));
-
     items.forEach((item, index) => {
       item.addEventListener('click', () => openLightbox(sources, alts, index));
     });
+
+    if (carousel.classList.contains('photo-carousel-auto') && track && items.length > 1) {
+      let paused = false;
+      let rafId = 0;
+      let lastTs = 0;
+      const speed = 320; // px per second
+
+      carousel.addEventListener('mouseenter', () => { paused = true; });
+      carousel.addEventListener('mouseleave', () => { paused = false; lastTs = 0; });
+      carousel.addEventListener('touchstart', () => { paused = true; }, { passive: true });
+      carousel.addEventListener('touchend', () => {
+        window.setTimeout(() => { paused = false; lastTs = 0; }, 2500);
+      }, { passive: true });
+
+      const tick = (ts) => {
+        if (!paused && track.scrollWidth > track.clientWidth) {
+          if (lastTs) {
+            const delta = (ts - lastTs) / 1000;
+            track.scrollLeft += speed * delta;
+      
+            const loopPoint = track.scrollWidth - track.clientWidth;
+            if (track.scrollLeft >= loopPoint - 1) {
+              track.scrollLeft = 0;
+            }
+          }
+          lastTs = ts;
+        } else  {
+          lastTs = ts;
+        }
+        rafId = requestAnimationFrame(tick);
+      };
+      rafId = requestAnimationFrame(tick);
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) cancelAnimationFrame(rafId);
+        else {
+          lastTs = 0;
+          rafId = requestAnimationFrame(tick);
+        }
+      });
+    } else {
+      const scrollByDir = (dir) => {
+        const amount = Math.max(240, track.clientWidth * 0.8) * dir;
+        track.scrollBy({ left: amount, behavior: 'smooth' });
+      };
+      carousel.querySelector('.photo-carousel-nav.prev')?.addEventListener('click', () => scrollByDir(-1));
+      carousel.querySelector('.photo-carousel-nav.next')?.addEventListener('click', () => scrollByDir(1));
+    }
   }
 
-  // Agenda multi-image carousel (dots + drag on desktop) + lightbox
-  document.querySelectorAll('.agenda-item-media-multi').forEach((scroller) => {
-    const images = Array.from(scroller.querySelectorAll('img'));
-    if (images.length < 2) return;
-
-    const sources = images.map((img) => img.src);
-    const alts = images.map((img) => img.alt || '');
-
-    const wrap = document.createElement('div');
-    wrap.className = 'agenda-media-wrap';
-    scroller.parentNode.insertBefore(wrap, scroller);
-    wrap.appendChild(scroller);
-
-    const goTo = (index) => {
-      const i = Math.max(0, Math.min(images.length - 1, index));
-      scroller.scrollTo({ left: i * scroller.clientWidth, behavior: 'smooth' });
-    };
-
-    const currentIndex = () => {
-      const step = Math.max(scroller.clientWidth, 1);
-      return Math.min(images.length - 1, Math.round(scroller.scrollLeft / step));
-    };
-
-    const dots = document.createElement('div');
-    dots.className = 'agenda-media-dots';
-    images.forEach((_, i) => {
-      const dot = document.createElement('button');
-      dot.type = 'button';
-      dot.setAttribute('aria-label', `Go to photo ${i + 1}`);
-      if (i === 0) dot.classList.add('active');
-      dot.addEventListener('click', () => goTo(i));
-      dots.appendChild(dot);
-    });
-    wrap.appendChild(dots);
-
-    const syncDots = () => {
-      const index = currentIndex();
-      dots.querySelectorAll('button').forEach((dot, i) => {
-        dot.classList.toggle('active', i === index);
-      });
-    };
-    scroller.addEventListener('scroll', syncDots, { passive: true });
-
-    // Desktop: click-drag to scroll; click (no drag) opens lightbox
-    let isDown = false;
-    let startX = 0;
-    let startLeft = 0;
-    let moved = false;
-    let openedByPointer = false;
-
-    scroller.addEventListener('pointerdown', (e) => {
-      if (e.pointerType === 'touch') return;
-      isDown = true;
-      moved = false;
-      openedByPointer = false;
-      startX = e.clientX;
-      startLeft = scroller.scrollLeft;
-      scroller.classList.add('is-dragging');
-      scroller.setPointerCapture(e.pointerId);
-    });
-
-    scroller.addEventListener('pointermove', (e) => {
-      if (!isDown) return;
-      const dx = e.clientX - startX;
-      if (Math.abs(dx) > 3) moved = true;
-      scroller.scrollLeft = startLeft - dx;
-    });
-
-    const endDrag = () => {
-      if (!isDown) return;
-      isDown = false;
-      scroller.classList.remove('is-dragging');
-      goTo(currentIndex());
-      if (!moved) {
-        openedByPointer = true;
-        openLightbox(sources, alts, currentIndex());
-      }
-    };
-
-    scroller.addEventListener('pointerup', endDrag);
-    scroller.addEventListener('pointercancel', () => {
-      if (!isDown) return;
-      isDown = false;
-      scroller.classList.remove('is-dragging');
-      goTo(currentIndex());
-    });
-
-    // Touch tap opens lightbox
-    scroller.addEventListener('click', () => {
-      if (openedByPointer) {
-        openedByPointer = false;
-        return;
-      }
-      if (moved) {
-        moved = false;
-        return;
-      }
-      openLightbox(sources, alts, currentIndex());
-    });
-  });
-
-  // Single agenda images: click to enlarge
-  document.querySelectorAll('.agenda-item-media:not(.agenda-item-media-multi) img').forEach((img) => {
+  // Agenda images: click to enlarge
+  document.querySelectorAll('.agenda-item-media img').forEach((img) => {
     img.addEventListener('click', () => {
       openLightbox([img.src], [img.alt || ''], 0);
     });

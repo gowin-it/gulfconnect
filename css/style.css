@@ -830,69 +830,25 @@ body:has(.event-hero-info) .agenda-speakers strong {
   cursor: zoom-in;
 }
 
-.agenda-item-media-multi {
-  position: relative;
+.agenda-item-media-stack {
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 0;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.agenda-item-media-stack img {
   width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  cursor: grab;
-}
-
-.agenda-item-media-multi::-webkit-scrollbar {
-  display: none;
-}
-
-.agenda-item-media-multi.is-dragging {
-  cursor: grabbing;
-  scroll-snap-type: none;
-}
-
-.agenda-item-media-multi img {
-  flex: 0 0 100%;
-  width: 100%;
-  min-width: 100%;
-  max-width: 100%;
-  scroll-snap-align: start;
-  pointer-events: none;
-  user-select: none;
-  -webkit-user-drag: none;
   cursor: zoom-in;
 }
 
-.agenda-media-wrap {
-  position: relative;
-  min-width: 0;
-  width: 100%;
+.promo-gallery-stack {
+  flex-direction: row;
+  align-items: stretch;
 }
 
-.agenda-media-dots {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-  margin-top: 8px;
-}
-
-.agenda-media-dots button {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  border: 0;
-  padding: 0;
-  background: var(--border);
-  cursor: pointer;
-}
-
-.agenda-media-dots button.active {
-  background: var(--gold);
+.promo-gallery-stack img {
+  flex: none;
+  max-width: 100%;
 }
 
 .agenda-item::before {
@@ -1304,6 +1260,18 @@ video[poster] {
   transform: scale(1.03);
 }
 
+.photo-carousel-auto .photo-carousel-nav {
+  display: none;
+}
+
+.photo-carousel-auto .photo-carousel-track {
+  scroll-behavior: auto;
+}
+
+.photo-carousel-auto.is-paused .photo-carousel-track {
+  scroll-behavior: smooth;
+}
+
 .photo-carousel-nav {
   flex: 0 0 auto;
   width: 40px;
@@ -1483,27 +1451,13 @@ video[poster] {
   }
 
   .agenda-item.has-media,
-  .agenda-item.has-media:has(.agenda-item-media-multi),
-  .agenda-item.has-media:has(.agenda-media-wrap) {
+  .agenda-item.has-media:has(.agenda-item-media-stack) {
     grid-template-columns: 1fr;
   }
 
   .agenda-item-media,
   .agenda-media-wrap {
     order: -1;
-  }
-
-  .agenda-item-media-multi {
-    margin: 0;
-    padding: 0;
-    gap: 0;
-  }
-
-  .agenda-item-media-multi img {
-    flex: 0 0 100%;
-    width: 100%;
-    min-width: 100%;
-    max-width: 100%;
   }
 
   .recap-videos {
