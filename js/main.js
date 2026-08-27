@@ -136,49 +136,94 @@ document.addEventListener('DOMContentLoaded', () => {
     const sources = items.map((item) => item.querySelector('img')?.src).filter(Boolean);
     const alts = items.map((item) => item.querySelector('img')?.alt || '');
 
-    items.forEach((item, index) => {
-      item.addEventListener('click', () => openLightbox(sources, alts, index));
-    });
-
     if (carousel.classList.contains('photo-carousel-auto') && track && items.length > 1) {
-      let paused = false;
-      let rafId = 0;
-      let lastTs = 0;
-      const speed = 320; // px per second
+      items.forEach((item) => {
+        const clone = item.cloneNode(true);
+        clone.dataset.carouselClone = 'true';
+        clone.setAttribute('aria-hidden', 'true');
+        clone.tabIndex = -1;
+        track.appendChild(clone);
+      });
 
-      carousel.addEventListener('mouseenter', () => { paused = true; });
-      carousel.addEventListener('mouseleave', () => { paused = false; lastTs = 0; });
-      carousel.addEventListener('touchstart', () => { paused = true; }, { passive: true });
+      track.querySelectorAll('.photo-carousel-item').forEach((item) => {
+        const index = Number(item.dataset.index || 0) % sources.length;
+        item.addEventListener('click', () => openLightbox(sources, alts, index));
+      });
+
+      let paused = false;
+      let loopPoint = 0;
+      let itemStep = 0;
+      let currentIndex = 0;
+      const slideDuration = 700;
+      const pauseDuration = 1800;
+
+      const updateLoopPoint = () => {
+        loopPoint = track.scrollWidth / 2;
+        itemStep = items[1]
+          ? items[1].offsetLeft - items[0].offsetLeft
+          : items[0].getBoundingClientRect().width;
+        if (itemStep) {
+          currentIndex = Math.round(track.scrollLeft / itemStep) % items.length;
+        }
+      };
+
+      updateLoopPoint();
+      window.addEventListener('resize', updateLoopPoint);
+
+      const setPaused = (isPaused) => {
+        paused = isPaused;
+        carousel.classList.toggle('is-paused', paused);
+      };
+
+      carousel.addEventListener('mouseenter', () => setPaused(true));
+      carousel.addEventListener('mouseleave', () => setPaused(false));
+      carousel.addEventListener('touchstart', () => setPaused(true), { passive: true });
       carousel.addEventListener('touchend', () => {
-        window.setTimeout(() => { paused = false; lastTs = 0; }, 2500);
+        window.setTimeout(() => setPaused(false), 2500);
       }, { passive: true });
 
-      const tick = (ts) => {
-        if (!paused && track.scrollWidth > track.clientWidth) {
-          if (lastTs) {
-            const delta = (ts - lastTs) / 1000;
-            track.scrollLeft += speed * delta;
-      
-            const loopPoint = track.scrollWidth - track.clientWidth;
-            if (track.scrollLeft >= loopPoint - 1) {
-              track.scrollLeft = 0;
-            }
-          }
-          lastTs = ts;
-        } else  {
-          lastTs = ts;
+      const moveNext = () => {
+        if (paused || loopPoint <= track.clientWidth || !itemStep) return;
+
+        currentIndex += 1;
+        track.scrollTo({
+          left: currentIndex * itemStep,
+          behavior: 'smooth'
+        });
+
+        if (currentIndex >= items.length) {
+          window.setTimeout(() => {
+            track.scrollLeft = 0;
+            currentIndex = 0;
+          }, slideDuration);
         }
-        rafId = requestAnimationFrame(tick);
       };
-      rafId = requestAnimationFrame(tick);
+
+      let autoTimer = 0;
+      const startAuto = () => {
+        if (!autoTimer) {
+          autoTimer = window.setInterval(moveNext, slideDuration + pauseDuration);
+        }
+      };
+      const stopAuto = () => {
+        window.clearInterval(autoTimer);
+        autoTimer = 0;
+      };
+
+      startAuto();
       document.addEventListener('visibilitychange', () => {
-        if (document.hidden) cancelAnimationFrame(rafId);
-        else {
-          lastTs = 0;
-          rafId = requestAnimationFrame(tick);
+        if (document.hidden) {
+          stopAuto();
+        } else {
+          updateLoopPoint();
+          startAuto();
         }
       });
     } else {
+      items.forEach((item, index) => {
+        item.addEventListener('click', () => openLightbox(sources, alts, index));
+      });
+
       const scrollByDir = (dir) => {
         const amount = Math.max(240, track.clientWidth * 0.8) * dir;
         track.scrollBy({ left: amount, behavior: 'smooth' });

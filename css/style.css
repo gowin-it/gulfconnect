@@ -1244,6 +1244,12 @@ video[poster] {
 
 .photo-carousel-auto .photo-carousel-track {
   scroll-behavior: auto;
+  scroll-snap-type: none;
+  scrollbar-width: none;
+}
+
+.photo-carousel-auto .photo-carousel-track::-webkit-scrollbar {
+  display: none;
 }
 
 .photo-carousel-auto.is-paused .photo-carousel-track {
